@@ -1,0 +1,73 @@
+# pip install django
+asgiref==3.5.2
+backports.zoneinfo==0.2.1
+Django==4.1.4
+sqlparse==0.4.3
+
+# pip install django-rest-framework
+django-rest-framework==0.1.0
+djangorestframework==3.14.0
+pytz==2022.6
+
+# pip install -U drf-yasg
+certifi==2022.12.7
+charset-normalizer==2.1.1
+coreapi==2.3.3
+coreschema==0.0.4
+drf-yasg==1.21.4
+idna==3.4
+inflection==0.5.1
+itypes==1.2.0
+Jinja2==3.1.2
+MarkupSafe==2.1.1
+packaging==22.0
+requests==2.28.1
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.7
+uritemplate==4.1.1
+urllib3==1.26.13
+
+# pip install psycopg2
+psycopg2==2.9.5
+
+# pip install pytest
+attrs==22.1.0
+exceptiongroup==1.0.4
+iniconfig==1.1.1
+pluggy==1.0.0
+pytest==7.2.0
+tomli==2.0.1
+
+# pip install pytest-django
+pytest-django==4.5.2
+
+# pip install factory-boy
+Faker==15.3.4
+factory-boy==3.2.1
+python-dateutil==2.8.2
+six==1.16.0
+
+# pip install Redis
+redis==4.4.0
+async-timeout==4.0.2
+
+# pip install celery
+celery==5.2.7
+
+# pip install flower
+flower==1.2.0
+ vine==5.0.0
+ billiard==3.6.4
+ kombu==5.2.4
+ click_didyoumean==0.3.0
+ click_repl==0.2.0
+ click_plugins==1.1.1
+ prometheus_client==0.15.0
+ tornado==6.2
+ humanize==4.4.0
+ prompt_toolkit==3.0.36
+ amqp==5.1.1
+
+# pip install pytest-dotenv
+pytest-dotenv==0.5.2
+python-dotenv==0.21.0

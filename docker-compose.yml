@@ -1,0 +1,97 @@
+version: "3.8"
+
+services:
+  api:
+    image: "api"
+    env_file:
+      - ./.env
+    build:
+      context: .
+      args:
+        ENVIRONMENT: ${ENVIRONMENT}
+    command: >
+      bash -c "
+      python manage.py makemigrations &&
+      python manage.py migrate &&
+      python manage.py create_admin_group &&
+      python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - db
+    volumes:
+      - .:/source
+    networks:
+      - zebrands
+    ports:
+      - "8000:8000"
+    stdin_open: true
+    tty: true
+  db:
+    image: postgres:15.1-alpine
+    environment:
+      POSTGRES_DB: zebrands_db
+      POSTGRES_USER: user_zebrands
+      POSTGRES_PASSWORD: zebrands
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+    networks:
+      - zebrands
+  redis:
+    image: redis:7.0.7-alpine
+    volumes:
+      - redis:/data
+    networks:
+      - zebrands
+  celery:
+    image: "api"
+    env_file:
+      - ./.env
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ENVIRONMENT: ${ENVIRONMENT}
+    command: >
+      bash -c "
+      sleep 5 &&
+      celery -A utils worker -l DEBUG"
+    environment:
+      - C_FORCE_ROOT=True
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - .:/source
+    networks:
+      - zebrands
+    ports:
+      - "6899-6909:6899-6909"
+  flower:
+    image: "api"
+    env_file:
+      - ./.env
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ENVIRONMENT: ${ENVIRONMENT}
+    command: bash -c "sleep 5 && celery -A utils flower"
+    depends_on:
+      - celery
+    volumes:
+      - .:/source
+    networks:
+      - zebrands
+    ports:
+      - "5555:5555"
+
+networks:
+  zebrands:
+    driver: bridge
+
+volumes:
+  postgres_data: {}
+  redis: {}

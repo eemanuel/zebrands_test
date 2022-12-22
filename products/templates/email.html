@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        background-color: #303030;
+        color: #d0d0d0;
+      }
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th {
+        border: 1px solid #007000;
+        text-align: left;
+        padding: 8px;
+      }
+      td {
+        border: 1px solid #404070;
+        text-align: left;
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Admin Product Modification</h1>
+    <h3>{{ title }}</h3>
+    <table>
+      {% if method == "create" or method == "destroy" %}
+      <tr>
+        <th>Field Name</th>
+        <th>Field Value</th>
+      </tr>
+      {% for field in fields %}
+      <tr>
+        <td>{{ field.name }}</td>
+        <td>{{ field.value }}</td>
+      </tr>
+      {% endfor %} {% elif method == "update" %}
+      <tr>
+        <th>Field Name</th>
+        <th>Before Update</th>
+        <th>After Update</th>
+      </tr>
+      {% for field in fields %}
+      <tr>
+        <td>{{ field.field_name }}</td>
+        <td>{{ field.before }}</td>
+        <td>{{ field.after }}</td>
+      </tr>
+      {% endfor %} {% endif %}
+    </table>
+  </body>
+</html>

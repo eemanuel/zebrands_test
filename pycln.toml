@@ -1,0 +1,5 @@
+[tool.pycln]
+path = "/zebrands/"
+expand_stars=false
+all=true
+no_gitignore=false
